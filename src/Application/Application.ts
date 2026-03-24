@@ -13,7 +13,6 @@ import Resources from './Utils/Resources';
 
 import sources from './sources';
 
-import Stats from 'stats.js';
 import Loading from './Utils/Loading';
 
 import UI from './UI';
@@ -34,7 +33,6 @@ export default class Application {
     mouse: Mouse;
     loading: Loading;
     ui: UI;
-    stats: Stats | undefined;
 
     constructor() {
         // Singleton
@@ -65,14 +63,6 @@ export default class Application {
 
         this.ui = new UI();
 
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('debug')) {
-            this.stats = new Stats();
-            this.stats.showPanel(0);
-
-            document.body.appendChild(this.stats.dom);
-        }
-
         // Resize event
         this.sizes.on('resize', () => {
             this.resize();
@@ -90,11 +80,9 @@ export default class Application {
     }
 
     update() {
-        if (this.stats) this.stats.begin();
         this.camera.update();
         this.world.update();
         this.renderer.update();
-        if (this.stats) this.stats.end();
     }
 
     destroy() {

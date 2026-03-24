@@ -1,8 +1,4 @@
-type Resource =
-    | TextureResource
-    | CubeTextureResource
-    | ModelResource
-    | AudioResource;
+type Resource = TextureResource | CubeTextureResource | ModelResource;
 
 declare interface StyleSheetCSS {
     [key: string]: React.CSSProperties;
@@ -26,12 +22,6 @@ type ModelResource = {
     path: string;
 };
 
-type AudioResource = {
-    name: string;
-    type: 'audio';
-    path: string;
-};
-
 type EnclosingPlane = {
     size: THREE.Vector2;
     position: THREE.Vector3;
@@ -43,18 +33,12 @@ type CameraKeyframe = {
     focalPoint: THREE.Vector3;
 };
 
-type LoadedResource =
-    | LoadedTexture
-    | LoadedCubeTexture
-    | LoadedModel
-    | LoadedAudio;
+type LoadedResource = LoadedTexture | LoadedCubeTexture | LoadedModel;
 
 type LoadedTexture = THREE.Texture;
 
 type LoadedModel = import('three/examples/jsm/loaders/GLTFLoader').GLTF;
 
 type LoadedCubeTexture = THREE.CubeTexture;
-
-type LoadedAudio = AudioBuffer;
 
 type ResourceType = 'texture' | 'cubeTexture' | 'gltfModel';

@@ -6,7 +6,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import TWEEN from '@tweenjs/tween.js';
 import Renderer from '../Renderer';
 import Resources from '../Utils/Resources';
-import UIEventBus from '../UI/EventBus';
 import Time from '../Utils/Time';
 import BezierEasing from 'bezier-easing';
 import {
@@ -25,6 +24,7 @@ export enum CameraKey {
     DESK = 'desk',
     ORBIT_CONTROLS_START = 'orbitControlsStart',
 }
+
 export default class Camera extends EventEmitter {
     application: Application;
     sizes: Sizes;
@@ -70,7 +70,7 @@ export default class Camera extends EventEmitter {
             event.preventDefault();
             // @ts-ignore
             if (event.target.id === 'prevent-click') return;
-            // print target and current keyframe
+
             if (
                 this.currentKeyframe === CameraKey.IDLE ||
                 this.targetKeyframe === CameraKey.IDLE
@@ -87,7 +87,6 @@ export default class Camera extends EventEmitter {
         this.setPostLoadTransition();
         this.setInstance();
         this.setMonitorListeners();
-        this.setFreeCamListeners();
     }
 
     transition(
@@ -141,48 +140,15 @@ export default class Camera extends EventEmitter {
                 2000,
                 BezierEasing(0.13, 0.99, 0, 1)
             );
-            UIEventBus.dispatch('enterMonitor', {});
         });
+
         this.on('leftMonitor', () => {
             this.transition(CameraKey.DESK);
-            UIEventBus.dispatch('leftMonitor', {});
-        });
-    }
-
-    setFreeCamListeners() {
-        UIEventBus.on('freeCamToggle', (toggle: boolean) => {
-            // if (toggle === this.freeCam) return;
-            if (toggle) {
-                this.transition(
-                    CameraKey.ORBIT_CONTROLS_START,
-                    750,
-                    BezierEasing(0.13, 0.99, 0, 1),
-                    () => {
-                        this.instance.position.copy(
-                            this.keyframes.orbitControlsStart.position
-                        );
-
-                        this.orbitControls.update();
-                        this.freeCam = true;
-                    }
-                );
-                // @ts-ignore
-                document.getElementById('webgl').style.pointerEvents = 'auto';
-            } else {
-                this.freeCam = false;
-                this.transition(
-                    CameraKey.IDLE,
-                    4000,
-                    TWEEN.Easing.Exponential.Out
-                );
-                // @ts-ignore
-                document.getElementById('webgl').style.pointerEvents = 'none';
-            }
         });
     }
 
     setPostLoadTransition() {
-        UIEventBus.on('loadingScreenDone', () => {
+        this.resources.on('ready', () => {
             this.transition(CameraKey.IDLE, 2500, TWEEN.Easing.Exponential.Out);
         });
     }

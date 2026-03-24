@@ -1,18 +1,15 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import Application from '../Application';
-import UIEventBus from '../UI/EventBus';
 import EventEmitter from './EventEmitter';
 import Loading from './Loading';
 
 export default class Resources extends EventEmitter {
     sources: Resource[];
-    // Not sure about this one
     items: {
         texture: { [name: string]: LoadedTexture };
         cubeTexture: { [name: string]: LoadedCubeTexture };
         gltfModel: { [name: string]: LoadedModel };
-        audio: { [name: string]: LoadedAudio };
     };
     toLoad: number;
     loaded: number;
@@ -20,7 +17,6 @@ export default class Resources extends EventEmitter {
         gltfLoader: GLTFLoader;
         textureLoader: THREE.TextureLoader;
         cubeTextureLoader: THREE.CubeTextureLoader;
-        audioLoader: THREE.AudioLoader;
     };
     application: Application;
     loading: Loading;
@@ -30,7 +26,7 @@ export default class Resources extends EventEmitter {
 
         this.sources = sources;
 
-        this.items = { texture: {}, cubeTexture: {}, gltfModel: {}, audio: {} };
+        this.items = { texture: {}, cubeTexture: {}, gltfModel: {} };
         this.toLoad = this.sources.length;
         this.loaded = 0;
         this.application = new Application();
@@ -45,12 +41,10 @@ export default class Resources extends EventEmitter {
             gltfLoader: new GLTFLoader(),
             textureLoader: new THREE.TextureLoader(),
             cubeTextureLoader: new THREE.CubeTextureLoader(),
-            audioLoader: new THREE.AudioLoader(),
         };
     }
 
     startLoading() {
-        // Load each source
         for (const source of this.sources) {
             if (source.type === 'gltfModel') {
                 this.loaders.gltfLoader.load(source.path, (file) => {
@@ -64,10 +58,6 @@ export default class Resources extends EventEmitter {
             } else if (source.type === 'cubeTexture') {
                 this.loaders.cubeTextureLoader.load(source.path, (file) => {
                     this.sourceLoaded(source, file);
-                });
-            } else if (source.type === 'audio') {
-                this.loaders.audioLoader.load(source.path, (buffer) => {
-                    this.sourceLoaded(source, buffer);
                 });
             }
         }

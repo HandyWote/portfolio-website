@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
-import GUI from 'lil-gui';
 import Application from '../Application';
 import Debug from '../Utils/Debug';
 import Resources from '../Utils/Resources';
@@ -22,7 +21,7 @@ export default class MonitorScreen extends EventEmitter {
     resources: Resources;
     debug: Debug;
     sizes: Sizes;
-    debugFolder: GUI;
+    debugFolder: unknown;
     screenSize: THREE.Vector2;
     position: THREE.Vector3;
     rotation: THREE.Euler;
