@@ -1,30 +1,38 @@
-# henryheffernan.com
+# HandyWote Portfolio
 
-This is one of two repositories created for my portfolio website <a href="https://henryheffernan.com/"><samp>henryheffernan.com</samp></a>. If you are looking for the 2D OS repository you can find it <a href="https://github.com/henryjeff/portfolio-inner-site"><samp>here</samp></a>! Thanks for taking the time to check this out. If you have any questions of comments, feel free to shoot me an email at <samp><a href="mailto:henryheffernan@gmail.com">henryheffernan@gmail.com</a></samp> or you can DM me on twitter <a href="https://twitter.com/henryheffernan"><samp>@henryheffernan</samp></a>.
+这是我的 3D 作品集网站，基于 Three.js 构建，展示了一个交互式的 3D 场景。
 
-<br>
+## 在线演示
 
-To setup a dev environment:
+[https://handywote.top](https://handywote.top)
+
+## 技术栈
+
+- **3D 引擎**: Three.js + CSS3DRenderer + GLTFLoader
+- **构建工具**: Vite
+- **语言**: TypeScript
+
+## 开发
 
 ```bash
-# Clone the repository
+# 安装依赖
+npm install
 
-# Install dependencies 
-npm i
-
-# Run the local dev server
+# 启动开发服务器
 npm run dev
-```
 
-To serve a production build:
-
-```bash
-# Install dependencies if not already done
-npm i
-
-# Build for production
+# 构建生产版本
 npm run build
 
-# Preview production build
+# 预览生产构建
 npm start
 ```
+
+## 致谢
+
+本项目基于 [henryheffernan.com](https://github.com/henryheffernan/henryheffernan.com) 进行二次开发。
+
+## 联系方式
+
+- **邮箱**: handy@handywote.top
+- **GitHub**: [https://github.com/HandyWote](https://github.com/HandyWote)

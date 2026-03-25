@@ -1,6 +1,8 @@
 {
-    "repository": "#",
-    "license": "UNLICENSED",
+    "name": "handywote-portfolio",
+    "author": "HandyWote",
+    "repository": "https://github.com/HandyWote/portfolio-website",
+    "license": "MIT",
     "scripts": {
         "start": "vite preview",
         "build": "vite build",

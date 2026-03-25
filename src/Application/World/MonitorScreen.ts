@@ -200,7 +200,7 @@ export default class MonitorScreen extends EventEmitter {
         iframe.style.opacity = '1';
         iframe.id = 'computer-screen';
         iframe.frameBorder = '0';
-        iframe.title = 'HeffernanOS';
+        iframe.title = 'HandyOS';
 
         // Add iframe to container
         container.appendChild(iframe);
