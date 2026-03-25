@@ -25,14 +25,14 @@ Removed features:
 ## Tech Stack
 
 - **3D**: Three.js + CSS3DRenderer + GLTFLoader
-- **Bundler**: Webpack 5 + ts-loader + babel-loader
+- **Bundler**: Vite
 - **Language**: TypeScript
 
 ## Commands
 
 ```bash
-npm run dev    # webpack-dev-server
-npm run build  # production build -> public/
+npm run dev    # vite dev server
+npm run build  # production build -> dist/
 npm start      # same as dev
 ```
 
@@ -75,4 +75,4 @@ cssScene -> CSS3DRenderer -> #css
 
 ## Build Output
 
-Production build outputs to `public/`.
+Production build outputs to `dist/`.
