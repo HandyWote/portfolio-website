@@ -19,11 +19,12 @@ npm run dev
 To serve a production build:
 
 ```bash
-# Install dependencies if not already done - 'npi i'
+# Install dependencies if not already done
+npm i
 
 # Build for production
 npm run build
 
-# Serve the build using express
+# Preview production build
 npm start
 ```
