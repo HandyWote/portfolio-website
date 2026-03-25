@@ -31,7 +31,6 @@ export default class MonitorScreen extends EventEmitter {
     inComputer: boolean;
     mouseClickInProgress: boolean;
     dimmingPlane: THREE.Mesh;
-    videoTextures: { [key in string]: THREE.VideoTexture };
 
     constructor() {
         super();
@@ -44,7 +43,6 @@ export default class MonitorScreen extends EventEmitter {
         this.camera = this.application.camera;
         this.position = new THREE.Vector3(0, 950, 255);
         this.rotation = new THREE.Euler(-3 * THREE.MathUtils.DEG2RAD, 0, 0);
-        this.videoTextures = {};
         this.mouseClickInProgress = false;
         this.shouldLeaveMonitor = false;
 
@@ -200,7 +198,6 @@ export default class MonitorScreen extends EventEmitter {
         iframe.style.padding = IFRAME_PADDING + 'px';
         iframe.style.boxSizing = 'border-box';
         iframe.style.opacity = '1';
-        iframe.className = 'jitter';
         iframe.id = 'computer-screen';
         iframe.frameBorder = '0';
         iframe.title = 'HeffernanOS';
@@ -260,9 +257,6 @@ export default class MonitorScreen extends EventEmitter {
     createTextureLayers() {
         const textures = this.resources.items.texture;
 
-        this.getVideoTextures('video-1');
-        this.getVideoTextures('video-2');
-
         // Scale factor to multiply depth offset by
         const scaleFactor = 4;
 
@@ -279,18 +273,6 @@ export default class MonitorScreen extends EventEmitter {
                 blending: THREE.NormalBlending,
                 opacity: 1,
                 offset: 5,
-            },
-            video: {
-                texture: this.videoTextures['video-1'],
-                blending: THREE.AdditiveBlending,
-                opacity: 0.5,
-                offset: 10,
-            },
-            video2: {
-                texture: this.videoTextures['video-2'],
-                blending: THREE.AdditiveBlending,
-                opacity: 0.1,
-                offset: 15,
             },
         };
 
@@ -312,19 +294,6 @@ export default class MonitorScreen extends EventEmitter {
 
         // Return the max offset
         return maxOffset;
-    }
-
-    getVideoTextures(videoId: string) {
-        const video = document.getElementById(videoId);
-        if (!video) {
-            setTimeout(() => {
-                this.getVideoTextures(videoId);
-            }, 100);
-        } else {
-            this.videoTextures[videoId] = new THREE.VideoTexture(
-                video as HTMLVideoElement
-            );
-        }
     }
 
     /**
